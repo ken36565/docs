@@ -1,28 +1,24 @@
 ---
-title: "hallo world"
-description: "Example section for showcasing API endpoints"
+title: "商户 API"
+description: "Example 商户接入API是Pay Protocol提供给商户的HTTP RESTful接口，商户可以通过该接口实现用户充值、提现、收单、退款等功能。section for showcasing API endpoints"
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete this section by removing the api-reference folder.
+  > If you're not looking to build API reference documentation, you can delete this section by removing the api-reference folder.
 </Note>
 
-## Welcome
+## **服务器地址**
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+> ### **正式环境**
+>
+> ```
+> https://api.payprotocol.network/api/mer
+> ```
 
-<Card title="Plant Store Endpoints" icon="leaf" href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json">
-  View the OpenAPI specification file
-</Card>
+> ### **沙盒环境**
+>
+> ```
+> https://api-sandbox.payprotocol.network/api/mer
+> ```
 
-## Authentication
-
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+## **Authentication**

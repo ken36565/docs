@@ -1,4 +1,356 @@
 ---
-title: 'Delete Plant'
-openapi: 'DELETE /plants/{id}'
+title: "Delete Plant"
+openapi: "DELETE /plants/{id}"
 ---
+
+# Get Action Status
+
+\> Use this API to poll for the status of asynchonous actions such as NFT mints, transfers, etc.
+
+**API scope required**: `nfts.create`
+
+## OpenAPI
+
+\`\`\`\`yaml get /2022-06-09/actions/{actionId}
+
+paths:
+
+  path: /2022-06-09/actions/{actionId}
+
+  method: get
+
+  servers:
+
+    - url: https://staging.crossmint.com/api
+
+      description: Staging environment (testnets)
+
+    - url: https://www.crossmint.com/api
+
+      description: Production environment (mainnets)
+
+  request:
+
+    security:
+
+      - title: apiKey
+
+        parameters:
+
+          query: {}
+
+          header:
+
+            X-API-KEY:
+
+              type: apiKey
+
+              description: Obtained in the Crossmint developer console
+
+          cookie: {}
+
+    parameters:
+
+      path:
+
+        actionId:
+
+          schema:
+
+            - type: string
+
+              required: true
+
+              description: The actionId.
+
+      query: {}
+
+      header: {}
+
+      cookie: {}
+
+    body: {}
+
+  response:
+
+    '200':
+
+      application/json:
+
+        schemaArray:
+
+          - type: object
+
+            properties:
+
+              actionId:
+
+                allOf:
+
+                  - type: string
+
+                    format: uuid
+
+                    example: 66881a4d-eff9-467a-b19d-a2ff76eef5c2
+
+              action:
+
+                allOf:
+
+                  - type: string
+
+                    example: nfts.create
+
+              status:
+
+                allOf:
+
+                  - type: string
+
+                    example: pending
+
+              data:
+
+                allOf:
+
+                  - type: object
+
+                    properties:
+
+                      collection:
+
+                        type: object
+
+                        properties:
+
+                          id:
+
+                            type: string
+
+                            example: someCollection
+
+                          contractAddress:
+
+                            type: string
+
+                            example: '0x0B7c736cD6D517b6AFfB3F6151eC662B0000018B'
+
+                      recipient:
+
+                        type: object
+
+                        properties:
+
+                          walletAddress:
+
+                            type: string
+
+                            example: '0x6Def4FF2Efe3731EB2Ca09c625d21bfd6da00000'
+
+                      token:
+
+                        type: object
+
+                        properties:
+
+                          id:
+
+                            type: string
+
+                            example: 66881a4d-eff9-467a-b19d-a2ff76eef5c2
+
+              startedAt:
+
+                allOf:
+
+                  - type: string
+
+                    format: date-time
+
+                    example: '2023-10-02T22:10:41.000Z'
+
+              resource:
+
+                allOf:
+
+                  - type: string
+
+                    format: uri
+
+                    example: \>-
+
+                      https://staging.crossmint.com/api/2022-06-09/actions/66881a4d-eff9-467a-b19d-a2ff76eef5c2
+
+        examples:
+
+          example:
+
+            value:
+
+              actionId: 66881a4d-eff9-467a-b19d-a2ff76eef5c2
+
+              action: nfts.create
+
+              status: pending
+
+              data:
+
+                collection:
+
+                  id: someCollection
+
+                  contractAddress: '0x0B7c736cD6D517b6AFfB3F6151eC662B0000018B'
+
+                recipient:
+
+                  walletAddress: '0x6Def4FF2Efe3731EB2Ca09c625d21bfd6da00000'
+
+                token:
+
+                  id: 66881a4d-eff9-467a-b19d-a2ff76eef5c2
+
+              startedAt: '2023-10-02T22:10:41.000Z'
+
+              resource: \>-
+
+                https://staging.crossmint.com/api/2022-06-09/actions/66881a4d-eff9-467a-b19d-a2ff76eef5c2
+
+        description: Success
+
+    '403':
+
+      application/json:
+
+        schemaArray:
+
+          - type: object
+
+            properties:
+
+              error:
+
+                allOf:
+
+                  - type: boolean
+
+                    example: true
+
+              message:
+
+                allOf:
+
+                  - type: string
+
+                    example: \>-
+
+                      Malformed API key. / API key provided doesn't have
+
+                      required scopes.
+
+            refIdentifier: '#/components/schemas/403Response'
+
+        examples:
+
+          example:
+
+            value:
+
+              error: true
+
+              message: \>-
+
+                Malformed API key. / API key provided doesn't have required
+
+                scopes.
+
+        description: Forbidden error, please ensure the credentials are correct.
+
+    '404':
+
+      application/json:
+
+        schemaArray:
+
+          - type: object
+
+            properties:
+
+              error:
+
+                allOf:
+
+                  - type: boolean
+
+                    example: true
+
+              message:
+
+                allOf:
+
+                  - type: string
+
+                    example: Not found
+
+            refIdentifier: '#/components/schemas/404Response'
+
+        examples:
+
+          example:
+
+            value:
+
+              error: true
+
+              message: Not found
+
+        description: Not found error.
+
+    '524':
+
+      application/json:
+
+        schemaArray:
+
+          - type: object
+
+            properties:
+
+              error:
+
+                allOf:
+
+                  - type: boolean
+
+                    example: true
+
+              message:
+
+                allOf:
+
+                  - type: string
+
+                    example: A timeout occurred.
+
+            refIdentifier: '#/components/schemas/524Response'
+
+        examples:
+
+          example:
+
+            value:
+
+              error: true
+
+              message: A timeout occurred.
+
+        description: A timeout occurred.
+
+  deprecated: false
+
+  type: path
+
+components:
+
+  schemas: {}
+
+\`\`\`\`
